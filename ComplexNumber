@@ -1,0 +1,81 @@
+//Complex numbers are immutable
+public class ComplexNumber {
+	public static final ComplexNumber ONE = new ComplexNumber(1, 0);
+	public static final ComplexNumber I = new ComplexNumber(0, 1);
+	public static final ComplexNumber NEGATIVE_ONE = new ComplexNumber(-1, 0);
+	public static final ComplexNumber NEGATIVE_I = new ComplexNumber(0, -1);
+
+	private final double x;
+	private final double y;
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public double getR() {
+		return Math.hypot(x, y);
+	}
+
+	// Between -pi and pi
+	public double getTheta() {
+		return Math.atan2(y, x);
+	}
+
+	public ComplexNumber conjugate() {
+		return new ComplexNumber(this.x, -this.y);
+	}
+
+	public ComplexNumber add(double d) {
+		return this.add(ComplexNumber.rect(d, 0));
+	}
+
+	public ComplexNumber add(ComplexNumber z) {
+		return new ComplexNumber(this.getX() + z.getX(), this.getY() + z.getY());
+	}
+
+	public ComplexNumber subtract(ComplexNumber z) {
+		return new ComplexNumber(this.getX() - z.getX(), this.getY() - z.getY());
+	}
+
+	public ComplexNumber multiply(double d) {
+		return this.multiply(ComplexNumber.rect(d, 0));
+	}
+
+	public ComplexNumber multiply(ComplexNumber z) {
+		return new ComplexNumber(this.x * z.getX() - this.y * z.getY(), this.x
+				* z.getY() + this.y * z.getX());
+	}
+
+	public ComplexNumber divide(double d) {
+		return this.divide(ComplexNumber.rect(d, 0));
+	}
+
+	public ComplexNumber divide(ComplexNumber z) {
+		return this.multiply(z.exponentiate(NEGATIVE_ONE));
+	}
+
+	public ComplexNumber exponentiate(ComplexNumber z) {
+		return polar(Math.pow(this.getR(), z.getX()) * Math.exp(-this.getTheta() * z.getY()), this.getTheta() + z.getY() * Math.log(this.getR()));
+	}
+
+	public ComplexNumber copy() {
+		return new ComplexNumber(this.getX(), this.getY());
+	}
+
+	public static ComplexNumber polar(double r, double theta) {
+		return new ComplexNumber(r * Math.cos(theta), r * Math.sin(theta));
+	}
+
+	public static ComplexNumber rect(double x, double y) {
+		return new ComplexNumber(x, y);
+	}
+
+	private ComplexNumber(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+}
