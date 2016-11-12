@@ -30,7 +30,7 @@ digits = 10;
 %Hensel's Lemma, looks for what solutions there are
 x=[];	
 for n = 0:p-1
-	if (mod(f(n),p) == 0 && mod(g(n),p)!=0)
+	if (mod(f(n),p) == 0 && mod(g(n),p)~=0)
 		x=[x,n];
 	end
 end
