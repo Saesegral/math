@@ -11,6 +11,8 @@ p as some prime number
 
 digits of accuracy (in base p)
 
+
+Fun fact, the p-adics contain all the (p-1) roots of unity, so something to test out.
 %}
 
 function f = f(n)
